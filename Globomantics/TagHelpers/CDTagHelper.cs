@@ -34,7 +34,7 @@ namespace Globomantics
                 $@"<div class=""meter"">
                     <p> { Title }</p>
                     <div class=""progress"">
-                        <div class=""progress-bar bg-info"" style=""width: { MeterPercent }%""> { rate }%</div>
+                        <div class=""progress-bar progress-bar-striped progress-bar-animated bg-info"" style=""width: { MeterPercent }%""> { rate }%</div>
                     </div>
                 </div>");
         }
