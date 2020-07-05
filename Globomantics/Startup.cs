@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Globomantics.Filters;
 using Globomantics.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,8 +27,10 @@ namespace Globomantics
         {
             services.AddSession();
             services.AddRazorPages();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<ModelValidationFilter>();
+            }).AddRazorRuntimeCompilation();
 
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddSingleton<ILoanService, LoanService>();
