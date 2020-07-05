@@ -26,7 +26,7 @@ namespace Globomantics
         {
             services.AddSession();
             services.AddRazorPages();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 
             services.AddTransient<IDocumentService, DocumentService>();
