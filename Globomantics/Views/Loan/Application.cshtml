@@ -23,6 +23,8 @@
     <p>Let us know what type of loan you're looking for.</p>
     <form method="post" asp-controller="Loan" asp-action="Application">
         <hr class="featurette-divider-thin">
+        
+        <div asp-validation-summary="All" style="background-color: pink;font-family: Comic Sans"></div>
 
         <div class="form-group">
             <label asp-for="Type">Loan Type</label>
