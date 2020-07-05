@@ -24,7 +24,11 @@ namespace Globomantics
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddSession();
+            services.AddRazorPages();
+            services.AddControllersWithViews();
+
+
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddSingleton<ILoanService, LoanService>();
             services.AddTransient<IQuoteService, QuoteService>();
@@ -32,21 +36,23 @@ namespace Globomantics
             services.AddTransient<IRateService, RateService>();
 
             services.AddDistributedMemoryCache();
-            services.AddSession(options =>
-            {
-                options.Cookie.HttpOnly = true;
-            });
+
+            services.AddHttpContextAccessor();
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.HttpOnly = true;
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -56,13 +62,20 @@ namespace Globomantics
 
             app.UseStaticFiles();
 
+            app.UseRouting();
+
             app.UseSession();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+
+
+            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
+
+
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }
