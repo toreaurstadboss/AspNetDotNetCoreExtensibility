@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Globomantics.Binders;
 using Globomantics.Filters;
 using Globomantics.Services;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,7 @@ namespace Globomantics
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<ModelValidationFilter>();
+                options.ModelBinderProviders.Insert(0, new SurveyBinderProvider());
             }).AddRazorRuntimeCompilation();
 
             services.AddTransient<IDocumentService, DocumentService>();

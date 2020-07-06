@@ -23,6 +23,8 @@
 <p>Please provide information about your employment.</p>
 <form method="post" asp-controller="Loan" asp-action="Employment">
     <hr class="featurette-divider-thin">
+    
+    @Html.ValidationSummary()
 
     <div class="form-group">
         <label>Current Employment Type</label>
