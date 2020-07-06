@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Globomantics.Binders;
 using Globomantics.Filters;
 using Globomantics.Services;
+using Globomantics.Theme;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -40,13 +41,20 @@ namespace Globomantics
             services.AddTransient<IFeatureService, FeatureService>();
             services.AddTransient<IRateService, RateService>();
 
+            services.Configure<IConfiguration>(Configuration);
+
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new ThemeExpander());
+            });
+
             services.AddDistributedMemoryCache();
 
             services.AddHttpContextAccessor();
-            //services.AddSession(options =>
-            //{
-            //    options.Cookie.HttpOnly = true;
-            //});
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
