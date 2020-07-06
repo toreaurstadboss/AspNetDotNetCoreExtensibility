@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Globomantics.Constraints;
 using Microsoft.AspNetCore.Mvc;
 using Globomantics.Models;
 using Globomantics.Services;
@@ -19,6 +20,8 @@ namespace Globomantics.Controllers
             this.rateService = rateService;
         }
 
+        [Route("")]
+        [Route("home/index")]
         public IActionResult Index()
         {
             //var home = new HomeVM()
@@ -27,6 +30,14 @@ namespace Globomantics.Controllers
             //    CDRates = rateService.GetCDRates(),
             //    CreditCardRates = rateService.GetCreditCardRates()
             //};
+            return View();
+        }
+
+        [Route("")]
+        [Route("home/index")]
+        [MobileSelector]
+        public IActionResult MobileIndex()
+        {
             return View();
         }
 
