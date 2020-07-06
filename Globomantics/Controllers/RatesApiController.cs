@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Globomantics.Models;
-using Globomantics.Services;
+﻿using Globomantics.Conventions;
 using Globomantics.Filters;
-using Globomantics.Conventions;
+using Globomantics.Middleware;
+using Globomantics.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Globomantics.Controllers
 {
     [ControllerVersion(Version = 1)]
     [RateExceptionFilter]
     [Route("api/rates")]
+    [MiddlewareFilter(typeof(BasicAuthConfig))]
     public class RatesApiController : Controller
     {
         private IRateService rateService;
